@@ -516,7 +516,6 @@ var _galleryItems = require("./gallery-items");
 const galleryWrapEl = document.querySelector(".gallery");
 const cardsImg = creatImgCards((0, _galleryItems.galleryItems));
 galleryWrapEl.insertAdjacentHTML("beforeend", cardsImg);
-galleryWrapEl.addEventListener("click", onImgContainerClick);
 function creatImgCards(galleryItems) {
     return galleryItems.map(({ preview , original , description  })=>{
         return `

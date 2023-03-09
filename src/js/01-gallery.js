@@ -11,7 +11,6 @@ const galleryWrapEl = document.querySelector('.gallery');
 const cardsImg = creatImgCards(galleryItems);
 galleryWrapEl.insertAdjacentHTML('beforeend', cardsImg);
 
-galleryWrapEl.addEventListener('click', onImgContainerClick);
 function creatImgCards(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
