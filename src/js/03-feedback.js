@@ -4,7 +4,6 @@ const inputEl = document.querySelector('input');
 const textareaEl = document.querySelector('textarea');
 const VIMEO_KEY_LS = 'feedback-form-state';
 
-form.addEventListener('input', throttle(fillForm, 500));
 form.addEventListener('submit', onFormSubmit);
 function onFormSubmit(ev) {
   ev.preventDefault();
@@ -20,4 +19,4 @@ function onFormSubmit(ev) {
 const fillForm = ({ value }) => {
   localStorage.setItem(VIMEO_KEY_LS, value);
 };
-form.setCurrentValue(localStorage.getItem(VIMEO_KEY_LS) || 0);
+form.addEventListener('input', throttle(fillForm, 500));
