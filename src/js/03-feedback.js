@@ -17,10 +17,7 @@ function onFormSubmit(ev) {
     console.log(name, value);
   });
 }
-function fillForm(ev) {
-  const saveData = localStorage.getItem(VIMEO_KEY_LS);
-  if (saveData) {
-    ev.currentTarget.value = saveData;
-    return;
-  }
-}
+const fillForm = ({ value }) => {
+  localStorage.setItem(VIMEO_KEY_LS, value);
+};
+form.setCurrentValue(localStorage.getItem(VIMEO_KEY_LS) || 0);
