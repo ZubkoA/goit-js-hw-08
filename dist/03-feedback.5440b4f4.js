@@ -510,6 +510,7 @@ const form = document.querySelector(".feedback-form");
 const inputEl = document.querySelector("input");
 const textareaEl = document.querySelector("textarea");
 const VIMEO_KEY_LS = "feedback-form-state";
+form.addEventListener("input", (0, _lodashThrottleDefault.default)(fillForm, 500));
 form.addEventListener("submit", onFormSubmit);
 function onFormSubmit(ev) {
     ev.preventDefault();
@@ -521,8 +522,13 @@ function onFormSubmit(ev) {
         console.log(name, value);
     });
 }
-setWatchingTime;
-form.addEventListener("input", throttle(setWatchingTime, 500));
+function fillForm(ev) {
+    const saveData = localStorage.getItem(VIMEO_KEY_LS);
+    if (saveData) {
+        ev.currentTarget.value = saveData;
+        return;
+    }
+}
 
 },{"lodash.throttle":"bGJVT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGJVT":[function(require,module,exports) {
 var global = arguments[3];
