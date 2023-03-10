@@ -507,24 +507,34 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _lodashThrottle = require("lodash.throttle");
 var _lodashThrottleDefault = parcelHelpers.interopDefault(_lodashThrottle);
 const form = document.querySelector(".feedback-form");
-const inputEl = document.querySelector("input");
-const textareaEl = document.querySelector("textarea");
-const VIMEO_KEY_LS = "feedback-form-state";
-form.addEventListener("submit", onFormSubmit);
-function onFormSubmit(ev) {
-    ev.preventDefault();
-    inputEl.textContent = "";
-    textareaEl.textContent = "";
-    localStorage.removeItem(VIMEO_KEY_LS);
-    const formData = new FormData(ev.currentTarget);
-    formData.forEach((value, name)=>{
-        console.log(name, value);
-    });
-}
-const fillForm = ({ value  })=>{
-    localStorage.setItem(VIMEO_KEY_LS, value);
+const email = document.querySelector(".feedback-form input");
+const textarea = document.querySelector(".feedback-form textarea");
+const STORAGE_KEY = "feedback-form-state";
+let formData = {
+    email: email.value,
+    textarea: textarea.value
 };
-form.addEventListener("input", (0, _lodashThrottleDefault.default)(fillForm, 500));
+form.addEventListener("submit", onFormSubmit);
+form.addEventListener("input", (0, _lodashThrottleDefault.default)(onFormInput, 500));
+populateFormInput();
+function onFormSubmit(e) {
+    e.preventDefault();
+    console.log(formData);
+    e.target.reset();
+    localStorage.removeItem(STORAGE_KEY);
+}
+function onFormInput(e) {
+    formData.email = email.value;
+    formData.textarea = textarea.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+}
+function populateFormInput() {
+    const savedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (savedMessage) {
+        email.value = savedMessage.email;
+        textarea.value = savedMessage.textarea;
+    }
+}
 
 },{"lodash.throttle":"bGJVT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGJVT":[function(require,module,exports) {
 var global = arguments[3];
